@@ -1,9 +1,7 @@
-This is your new Play application
+This is Line bot application
 =================================
 
-This file will be packaged with your application when using `activator dist`.
-
-There are several demonstration files available in this template.
+機能を追加次第ここも更新していきます
 
 Controllers
 ===========
