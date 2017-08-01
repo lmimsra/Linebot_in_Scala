@@ -3,7 +3,7 @@ This is Line bot application
 
 機能を追加次第ここも更新していきます
 
-Controllers
+コントローラーー
 ===========
 
 - HomeController.scala:
@@ -19,7 +19,7 @@ Controllers
   Shows how to inject a component into a controller and use the component when
   handling requests.
 
-Components
+コンポーネント
 ==========
 
 - Module.scala:
@@ -35,7 +35,7 @@ Components
   An example of a component that starts when the application starts and stops
   when the application stops.
 
-Filters
+フィルター
 =======
 
 - Filters.scala:

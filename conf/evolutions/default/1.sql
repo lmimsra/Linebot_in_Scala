@@ -1,0 +1,15 @@
+# --- !Ups
+
+CREATE TABLE IF NOT EXISTS Test (
+  id BIGINT(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  t_name VARCHAR(200) NOT NULL,
+  t_age BIGINT(20) NOT NULL
+);
+
+INSERT INTO Test VALUES ( "あうちやねん", 23);
+INSERT INTO Test VALUES ( "何がやねん？", 43);
+INSERT INTO Test VALUES ( "これがやねん？", 56) ;
+
+# --- !Downs
+
+DROP TABLE Test;
