@@ -7,9 +7,14 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 scalaVersion := "2.11.7"
 
 libraryDependencies ++= Seq(
-  jdbc,
   cache,
   ws,
-  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test
+  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
+  "mysql" % "mysql-connector-java" % "5.1.34",
+  "com.typesafe.play" %% "play-slick" % "2.0.2",
+  "com.typesafe.play" %% "play-slick-evolutions" % "2.0.0",
+  "com.typesafe.slick" %% "slick" % "3.1.1",
+  "org.mariadb.jdbc" % "mariadb-java-client" % "1.4.4"
 )
 
+fork in run := false
