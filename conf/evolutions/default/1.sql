@@ -6,10 +6,11 @@ CREATE TABLE IF NOT EXISTS Test (
   t_age BIGINT(20) NOT NULL
 );
 
-INSERT INTO Test VALUES ( "あうちやねん", 23);
-INSERT INTO Test VALUES ( "何がやねん？", 43);
-INSERT INTO Test VALUES ( "これがやねん？", 56) ;
+INSERT INTO Test VALUES (1,'あうちやねん', 23);
+INSERT INTO Test VALUES (2, '何がやねん？', 43);
+INSERT INTO Test VALUES (3, 'これがやねん？', 56) ;
 
+INSERT INTO connection VALUES (1,'コンドー');
 # --- !Downs
 
 DROP TABLE Test;
