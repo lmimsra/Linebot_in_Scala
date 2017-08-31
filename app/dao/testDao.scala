@@ -15,7 +15,7 @@ class testDao @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) 
   private val Tests = TableQuery[TestTable]
 
   private class TestTable(tag: Tag) extends Table[Test](tag,"connection"){
-    def id = column[Int]("id",O.PrimaryKey,O.AutoInc)
+    def id = column[Long]("id",O.PrimaryKey,O.AutoInc)
     def name = column[String]("name")
     def * = (id,name)<>(Test.tupled,Test.unapply _)
   }
