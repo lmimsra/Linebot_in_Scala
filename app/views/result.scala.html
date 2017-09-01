@@ -4,8 +4,8 @@
     @template(title) {
         <h2>DBアクセステスト</h2>
         <h4>Input Form</h4>
-        <div class="row form-group">
-            <div class="col-md-offset-3 col-md-6">
+        <div class="row justify-content-md-center">
+            <div class="col-md-6">
                 @b4.form(routes.DataAccessController.InsertData()) {
                     @b4.text(inputForm("id"), '_label -> "id")
                     @b4.text(inputForm("name"), '_label -> "name")
@@ -17,8 +17,8 @@
             </div>
         </div>
         <h4 style="margin-top: 40px">データベース内のデータ一覧</h4>
-        <div class="row">
-            <div class="col-md-5 col-md-offset-1">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
             <table class="table table-active">
                 <thead class="table-inverse">
                     <tr>
