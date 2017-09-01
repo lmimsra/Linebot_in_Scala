@@ -1,8 +1,21 @@
-@(title: String)(content: Seq[Test])
-
+@(title: String)(content: Seq[Test])(inputForm:Form[Test])(implicit messages:Messages)
+@import b4.vertical.fieldConstructor
 @*テンプレートへ入れる*@
 @template(title) {
-    <h2>データベース内のデータ一覧</h2>
+    <h2>DBアクセステスト</h2>
+    <h4>Input Form</h4>
+    @b4.form(routes.DataAccessController.InsertData()){
+        @b4.text(inputForm("id"), 'label->"id")
+        @b4.text(inputForm("name"), 'label->"name")
+        @b4.submit('class -> "btn btn-default boxSet") {
+            送信
+        }
+        @b4.reset('class -> "btn btn-danger boxSet") {
+            リセット
+        }
+    }
+
+    <h4 style="margin-top: 40px">データベース内のデータ一覧</h4>
     <div style="margin-top: 20px">
         <table>
             <tr>
