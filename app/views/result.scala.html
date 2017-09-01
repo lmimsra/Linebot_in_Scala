@@ -1,34 +1,36 @@
-@(title: String)(content: Seq[Test])(inputForm:Form[Test])(implicit messages:Messages)
-@import b4.vertical.fieldConstructor
-@*テンプレートへ入れる*@
-@template(title) {
-    <h2>DBアクセステスト</h2>
-    <h4>Input Form</h4>
-    @b4.form(routes.DataAccessController.InsertData()){
-        @b4.text(inputForm("id"), 'label->"id")
-        @b4.text(inputForm("name"), 'label->"name")
-        @b4.submit('class -> "btn btn-default boxSet") {
-            送信
-        }
-        @b4.reset('class -> "btn btn-danger boxSet") {
-            リセット
-        }
-    }
-
-    <h4 style="margin-top: 40px">データベース内のデータ一覧</h4>
-    <div style="margin-top: 20px">
-        <table>
-            <tr>
-                <th>id</th>
-                <th>name</th>
-            </tr>
-            @for(b <- content) {
-                <tr>
-                    <td>@b.id</td>
-                    <td>@b.name</td>
-                </tr>
+@(title: String)(content: Seq[Test])(inputForm: Form[Test])(implicit messages: Messages)
+    @import b4.vertical.fieldConstructor
+    @*テンプレートへ入れる*@
+    @template(title) {
+        <h2>DBアクセステスト</h2>
+        <h4>Input Form</h4>
+        @b4.form(routes.DataAccessController.InsertData()) {
+            @b4.text(inputForm("id"), 'label -> "id")
+            @b4.text(inputForm("name"), 'label -> "name")
+            @b4.submit('class -> "btn btn-default boxSet") {
+                送信
             }
-        </table>
+            @b4.reset('class -> "btn btn-danger boxSet") {
+                リセット
+            }
+        }
 
-    </div>
-}
+        <h4 style="margin-top: 40px">データベース内のデータ一覧</h4>
+        <div style="margin-top: 20px">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>name</th>
+                    </tr>
+                </thead>
+                @for(b <- content) {
+                    <tr>
+                        <td>@b.id</td>
+                        <td>@b.name</td>
+                    </tr>
+                }
+            </table>
+
+        </div>
+    }
