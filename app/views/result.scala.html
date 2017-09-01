@@ -1,34 +1,40 @@
-@(title: String)(content: Seq[Test])
-
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        @* Here's where we render the page title `String`. *@
-        <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-        <script src="@routes.Assets.versioned("javascripts/hello.js")" type="text/javascript"></script>
-    </head>
-    <body>
-        @* And here's where we render the `Html` object containing
-        * the page content. *@
-        <div class="container">
-            <h2>データベース内のデータ一覧</h2>
-            <div style="margin-top: 20px">
-                <table>
+@(title: String)(content: Seq[Test])(inputForm: Form[Test])(implicit messages: Messages)
+    @import b4.vertical.fieldConstructor
+    @*テンプレートへ入れる*@
+    @template(title) {
+        <h2>DBアクセステスト</h2>
+        <h4>Input Form</h4>
+        <div class="row justify-content-md-center">
+            <div class="col-md-6">
+                @b4.form(routes.DataAccessController.InsertData()) {
+                    @b4.text(inputForm("id"), '_label -> "id")
+                    @b4.text(inputForm("name"), '_label -> "name")
+                    <div class="form-inline">
+                        @b4.submit('class -> "btn btn-default boxSet") {送信}
+                        @b4.reset('class -> "btn btn-danger boxSet button-margin") {リセット}
+                    }
+                    </div>
+            </div>
+        </div>
+        <h4 style="margin-top: 40px">データベース内のデータ一覧</h4>
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+            <table class="table table-active">
+                <thead class="table-inverse">
                     <tr>
                         <th>id</th>
                         <th>name</th>
                     </tr>
-                    @for(b <- content) {
-                        <tr>
-                            <td>@b.id</td>
-                            <td>@b.name</td>
-                        </tr>
-                    }
-                </table>
-
+                </thead>
+                <tbody>
+                @for(b <- content) {
+                    <tr>
+                        <td>@b.id</td>
+                        <td>@b.name</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
             </div>
         </div>
-    </body>
-</html>
+    }

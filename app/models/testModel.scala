@@ -1,3 +1,3 @@
 package models
 
-case class Test(id:Int,name:String)
+case class Test(id:Long,name:String)
