@@ -24,13 +24,16 @@
                         <th>name</th>
                     </tr>
                 </thead>
+                <tbody>
                 @for(b <- content) {
                     <tr>
                         <td>@b.id</td>
                         <td>@b.name</td>
                     </tr>
                 }
+                </tbody>
             </table>
+
 
         </div>
     }
