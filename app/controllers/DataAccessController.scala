@@ -31,8 +31,8 @@ class DataAccessController @Inject()(testDao: testDao)(val messagesApi: Messages
 
   //データの追加(Create)
   def InsertData = Action.async { implicit request =>
-    val testData: Test = inputform.bindFromRequest.get
-    testDao.insert(testData).map(_ => Redirect(routes.DataAccessController.show()))
+    val param: FormGetter = formGetter.bindFromRequest.get
+    testDao.insert(new Test(1,param.text)).map(_ => Redirect(routes.DataAccessController.show()))
 
   }
 
