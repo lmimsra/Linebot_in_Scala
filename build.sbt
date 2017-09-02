@@ -13,7 +13,7 @@ libraryDependencies ++= Seq(
   "mysql" % "mysql-connector-java" % "5.1.34",
   "com.typesafe.play" %% "play-slick" % "2.0.2",
   "com.typesafe.play" %% "play-slick-evolutions" % "2.0.0",
-  "com.typesafe.slick" %% "slick" % "3.1.1",
+  "com.typesafe.slick" %% "slick" % "3.2.1",
   "org.mariadb.jdbc" % "mariadb-java-client" % "1.4.4",
   "com.adrianhurt" %% "play-bootstrap" % "1.1-P25-B4"
 )

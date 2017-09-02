@@ -14,25 +14,49 @@ import play.api.i18n.{I18nSupport, MessagesApi}
   * created by mmr 2017/08/31
   * DataAccessTest Controller
   */
+case class FormGetter(text: String)
 
 @Singleton
-class DataAccessController @Inject()(testDao: testDao)(val messagesApi: MessagesApi) extends Controller with I18nSupport{
+class DataAccessController @Inject()(testDao: testDao)(val messagesApi: MessagesApi) extends Controller with I18nSupport {
 
   //データの入力用フォーム作成
   val inputform = Form(mapping(
-    "id"->longNumber,
-    "name"->text)
+    "id" -> longNumber,
+    "name" -> nonEmptyText(minLength = 1))
   (Test.apply)(Test.unapply)
   )
 
+  val formGetter = Form(mapping(
+    "name" -> nonEmptyText(minLength = 1))(FormGetter.apply)(FormGetter.unapply))
+
   //データの追加(Create)
-  def InsertData = Action.async{ implicit request=>
-    val testData:Test = inputform.bindFromRequest.get
-    testDao.insert(testData).map(_ =>Redirect(routes.DataAccessController.show))
+  def InsertData = Action.async { implicit request =>
+    val param: FormGetter = formGetter.bindFromRequest.get
+    testDao.insert(new Test(1,param.text)).map(_ => Redirect(routes.DataAccessController.show()))
 
   }
 
 
+  //move to edit window
+  def editContent(id: Long) = Action.async {
+    testDao.findById(id).map {
+      editData => Ok(views.html.edit("編集ページ")(inputform.fill(editData)))
+    }
+  }
+
+
+  //update item
+  def update(id:Long) = Action.async { implicit request =>
+    val param: FormGetter = formGetter.bindFromRequest.get
+    testDao.edit(new Test(id,param.text)).map(_ => Redirect(routes.DataAccessController.show()))
+  }
+
+  //delete item
+  def delete(id:Long)=Action.async { implicit request=>
+    testDao.delete(id).map(
+      _ => Redirect(routes.DataAccessController.show())
+    )
+  }
 
   //  データの表示
   def show = Action.async {

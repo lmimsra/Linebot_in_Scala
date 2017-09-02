@@ -1,0 +1,15 @@
+@(title: String)(form_content: Form[Test])(implicit messages: Messages)
+@import b4.vertical.fieldConstructor
+@template(title) {
+    <div class="row">
+        <div class="col-md-7">
+            @b4.form(routes.DataAccessController.update(form_content.get.id)) {
+                @b4.text(form_content("name"), '_label -> "name")
+                <div class="form-inline">
+                    @b4.submit('class -> "btn btn-default boxSet") {送信}
+                    @b4.reset('class -> "btn btn-danger boxSet button-margin") {リセット}
+                }
+                </div>
+        </div>
+    </div>
+}
