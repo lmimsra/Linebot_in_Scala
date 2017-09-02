@@ -18,6 +18,6 @@ GET         /show                controllers.DataAccessController.show
 
 POST        /insert              controllers.DataAccessController.InsertData
 
-POST        /update              controllers.DataAccessController.update
+POST        /update              controllers.DataAccessController.update(id:Long)
 
 GET         /edit/:id            controllers.DataAccessController.editContent(id:Long)

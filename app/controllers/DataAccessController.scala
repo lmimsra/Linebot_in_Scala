@@ -14,6 +14,7 @@ import play.api.i18n.{I18nSupport, MessagesApi}
   * created by mmr 2017/08/31
   * DataAccessTest Controller
   */
+case class FormGetter(text: String)
 
 @Singleton
 class DataAccessController @Inject()(testDao: testDao)(val messagesApi: MessagesApi) extends Controller with I18nSupport {
@@ -24,6 +25,9 @@ class DataAccessController @Inject()(testDao: testDao)(val messagesApi: Messages
     "name" -> text)
   (Test.apply)(Test.unapply)
   )
+
+  val formGetter = Form(mapping(
+    "name" -> text)(FormGetter.apply)(FormGetter.unapply))
 
   //データの追加(Create)
   def InsertData = Action.async { implicit request =>
@@ -42,9 +46,9 @@ class DataAccessController @Inject()(testDao: testDao)(val messagesApi: Messages
 
 
   //update method
-  def update = Action.async { implicit request =>
-    val testData: Test = inputform.bindFromRequest.get
-    testDao.edit(testData).map(_ => Redirect(routes.DataAccessController.show()))
+  def update(id:Long) = Action.async { implicit request =>
+    val param: FormGetter = formGetter.bindFromRequest.get
+    testDao.edit(new Test(id,param.text)).map(_ => Redirect(routes.DataAccessController.show()))
   }
 
   //  データの表示
