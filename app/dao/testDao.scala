@@ -32,5 +32,7 @@ class testDao @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) 
     _.id === test.id
   ).map(_.name).update(test.name))
 
+  def delete(id:Long):Future[Int] = db.run(Tests.filter(_.id === id).delete)
+
   def findById(id:Long):Future[Test] = db.run(Tests.filter(_.id === id).result.head)
 }

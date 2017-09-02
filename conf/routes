@@ -21,3 +21,5 @@ POST        /insert              controllers.DataAccessController.InsertData
 POST        /update              controllers.DataAccessController.update(id:Long)
 
 GET         /edit/:id            controllers.DataAccessController.editContent(id:Long)
+
+GET         /delete/:id            controllers.DataAccessController.delete(id:Long)

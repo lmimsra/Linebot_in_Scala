@@ -22,12 +22,12 @@ class DataAccessController @Inject()(testDao: testDao)(val messagesApi: Messages
   //データの入力用フォーム作成
   val inputform = Form(mapping(
     "id" -> longNumber,
-    "name" -> text)
+    "name" -> nonEmptyText(minLength = 1))
   (Test.apply)(Test.unapply)
   )
 
   val formGetter = Form(mapping(
-    "name" -> text)(FormGetter.apply)(FormGetter.unapply))
+    "name" -> nonEmptyText(minLength = 1))(FormGetter.apply)(FormGetter.unapply))
 
   //データの追加(Create)
   def InsertData = Action.async { implicit request =>
@@ -45,10 +45,17 @@ class DataAccessController @Inject()(testDao: testDao)(val messagesApi: Messages
   }
 
 
-  //update method
+  //update item
   def update(id:Long) = Action.async { implicit request =>
     val param: FormGetter = formGetter.bindFromRequest.get
     testDao.edit(new Test(id,param.text)).map(_ => Redirect(routes.DataAccessController.show()))
+  }
+
+  //delete item
+  def delete(id:Long)=Action.async { implicit request=>
+    testDao.delete(id).map(
+      _ => Redirect(routes.DataAccessController.show())
+    )
   }
 
   //  データの表示
