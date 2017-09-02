@@ -31,4 +31,6 @@ class testDao @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) 
   def edit(test: Test): Future[Int] = db.run(Tests.filter(
     _.id === test.id
   ).map(_.name).update(test.name))
+
+  def findById(id:Long):Future[Test] = db.run(Tests.filter(_.id === id).result.head)
 }
