@@ -12,6 +12,6 @@ http://photoshopvip.:net/96532
 ### CRUD処理実装済
 
 ### memo
-- run
+- run  
 外部confファイルを使うとき、オプション指定しなければならない。
 ``` -Dconfig.resource= ファイル名```
