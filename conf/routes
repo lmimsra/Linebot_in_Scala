@@ -22,4 +22,8 @@ POST        /update              controllers.DataAccessController.update(id:Long
 
 GET         /edit/:id            controllers.DataAccessController.editContent(id:Long)
 
-GET         /delete/:id            controllers.DataAccessController.delete(id:Long)
+GET         /delete/:id          controllers.DataAccessController.delete(id:Long)
+
+GET         /get/json            controllers.LineBotController.getJsonString
+
+GET         /test/json           controllers.LineBotController.getTestJson
