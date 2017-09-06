@@ -18,14 +18,14 @@ class LineBotController @Inject()(testDao: testDao)(val messagesApi: MessagesApi
   def getJsonString = Action.async {
     testDao.all().map(
       datalist=>{
-       var jsonlist = datalist.toList
+       var jsonlist = datalist.toList.toString()
         Ok(jsonlist)
       }
     )
   }
 
   def getTestJson = Action{
-    var jsondata = ""
+    var jsondata = "Test"
     Ok(jsondata)
   }
 }
