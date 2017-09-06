@@ -21,4 +21,8 @@ class HomeController @Inject() extends Controller {
     Ok(views.html.index("Your new application is ready."))
   }
 
+  def myIndex  =Action {
+    Ok(views.html.myindex("インデックス"))
+  }
+
 }

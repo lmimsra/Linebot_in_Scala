@@ -3,7 +3,7 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET         /                    controllers.HomeController.index
+#GET         /                    controllers.HomeController.index
 # An example controller showing how to use dependency injection
 GET         /count               controllers.CountController.count
 # An example controller showing how to write asynchronous code
@@ -14,6 +14,8 @@ GET         /assets/*file        controllers.Assets.versioned(path="/public", fi
 
 #GET        /rest-test           restapi.RestApiTest.getJsonScala
 
+GET         /                    controllers.HomeController.myIndex
+
 GET         /show                controllers.DataAccessController.show
 
 POST        /insert              controllers.DataAccessController.InsertData
@@ -22,4 +24,8 @@ POST        /update              controllers.DataAccessController.update(id:Long
 
 GET         /edit/:id            controllers.DataAccessController.editContent(id:Long)
 
-GET         /delete/:id            controllers.DataAccessController.delete(id:Long)
+GET         /delete/:id          controllers.DataAccessController.delete(id:Long)
+
+GET         /get/json            controllers.LineBotController.getJsonString
+
+GET         /test/json           controllers.LineBotController.getTestJson
