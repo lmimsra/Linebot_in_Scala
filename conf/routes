@@ -28,4 +28,4 @@ GET         /delete/:id          controllers.DataAccessController.delete(id:Long
 
 GET         /get/json            controllers.LineBotController.getJsonString
 
-GET         /test/json           controllers.LineBotController.getTestJson
+POST        /line/request        controllers.LineBotController.sendPHP
