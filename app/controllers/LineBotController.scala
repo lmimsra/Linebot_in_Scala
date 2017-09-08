@@ -35,7 +35,6 @@ class LineBotController @Inject()(testDao: testDao)(val messagesApi: MessagesApi
   def getJsonString = Action.async {
     testDao.all().map(
       datalist => {
-        //       var jsonlist = JSONArray(datalist.toList).toString()
         var jsonlist = Json.toJson(datalist).toString()
         Ok(jsonlist)
       }
@@ -50,39 +49,25 @@ class LineBotController @Inject()(testDao: testDao)(val messagesApi: MessagesApi
     var jsonlist: String = ""
     var coun: Int = 0
     var rnd = new Random()
-    println("[my Info] 関数呼び出し前 coun-> " + coun)
-    println("[my Info] POSTされた値(Class) " + json_request.getClass)
-    println("[my Info] POSTされた値(Json) " + formdata)
+//    println("[my Info] 関数呼び出し前 coun-> " + coun)
+//    println("[my Info] POSTされた値(Class) " + json_request.getClass)
+//    println("[my Info] POSTされた値(Json) " + formdata)
     var endname:Future[Test] = for {
       num <- testDao.countData()
       ids <- testDao.findIdList()
       one <- testDao.findById(ids(rnd.nextInt(num)))
-//      one <- testDao.findById(1)
+
     }yield one
-//    testDao.countData().map(result => coun=result)
-//    testDao.findById(floor(random * coun).toLong).map(
-//      rand_data => {
-//        jsonlist = Json.toJson(rand_data).toString()
-//        Ok(jsonlist)
-//      }
-//
-//    )
-    println("[my Info] endname -> "+endname.value)
+
+//    println("[my Info] endname -> "+endname.value)
     endname.map(
       result =>{
-        jsonlist=Json.toJson(result).toString()
-        println("[my Info] jsonlist -> "+jsonlist)
-        Ok(jsonlist)
+        jsonlist=Json.toJson(result.name).toString()
+//        println("[my Info] jsonlist -> "+jsonlist)
+        Ok(result.name)
       }
     )
-//    jsonlist=Json.toJson(endname).toString()
-//    println(endname.getClass)
 
-//    getOneData.map(result => {
-//      val jsdata = Json.toJson(result).toString()
-//      Ok(jsdata)
-//    })
-//    Await.ready(endname, Duration.Inf)
   }
 
   def getOneData : Future[Test] = {
