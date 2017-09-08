@@ -6,6 +6,12 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.11.7"
 
+import com.github.play2war.plugin._
+
+Play2WarPlugin.play2WarSettings
+
+Play2WarKeys.servletVersion := "3.1"
+
 libraryDependencies ++= Seq(
   cache,
   ws,
