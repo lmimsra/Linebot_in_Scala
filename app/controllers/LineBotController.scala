@@ -16,6 +16,7 @@ import play.api.mvc._
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
 import scala.math._
+import scala.util.Random
 import scala.util.parsing.json.JSONArray
 
 @Singleton
@@ -48,11 +49,15 @@ class LineBotController @Inject()(testDao: testDao)(val messagesApi: MessagesApi
     var json_request = Json.toJson(formdata).validate[TestJsonData].get
     var jsonlist: String = ""
     var coun: Int = 0
+    var rnd = new Random()
     println("[my Info] 関数呼び出し前 coun-> " + coun)
-    println("[my Info] POSTされた値 " + json_request)
+    println("[my Info] POSTされた値(Class) " + json_request.getClass)
+    println("[my Info] POSTされた値(Json) " + formdata)
     var endname:Future[Test] = for {
       num <- testDao.countData()
-      one <- testDao.findById((floor(random * num).toLong)+1)
+      ids <- testDao.findIdList()
+      one <- testDao.findById(ids(rnd.nextInt(num)))
+//      one <- testDao.findById(1)
     }yield one
 //    testDao.countData().map(result => coun=result)
 //    testDao.findById(floor(random * coun).toLong).map(
@@ -63,7 +68,6 @@ class LineBotController @Inject()(testDao: testDao)(val messagesApi: MessagesApi
 //
 //    )
     println("[my Info] endname -> "+endname.value)
-    println("[my Info] endname -> ")
     endname.map(
       result =>{
         jsonlist=Json.toJson(result).toString()

@@ -37,4 +37,6 @@ class testDao @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) 
   def findById(id:Long):Future[Test] = db.run(Tests.filter(_.id === id).result.head)
 
   def countData():Future[Int] = db.run(Tests.length.result)
+
+  def findIdList():Future[Seq[Long]]  =db.run(Tests.map(row => row.id).result)
 }
