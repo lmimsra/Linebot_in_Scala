@@ -42,7 +42,8 @@ class LineBotController @Inject()(testDao: testDao)(val messagesApi: MessagesApi
   }
 
 
-  def sendPHP = Action.async { request =>
+  //DBからランダムに値を返す
+  def getRandData = Action.async { request =>
     //bodyを代入
     val formdata = request.body.asJson
     var json_request = Json.toJson(formdata).validate[TestJsonData].get
@@ -52,6 +53,8 @@ class LineBotController @Inject()(testDao: testDao)(val messagesApi: MessagesApi
 //    println("[my Info] 関数呼び出し前 coun-> " + coun)
 //    println("[my Info] POSTされた値(Class) " + json_request.getClass)
 //    println("[my Info] POSTされた値(Json) " + formdata)
+
+    //DBからランダムに値を１つ値を取得
     var endname:Future[Test] = for {
       num <- testDao.countData()
       ids <- testDao.findIdList()
@@ -68,6 +71,12 @@ class LineBotController @Inject()(testDao: testDao)(val messagesApi: MessagesApi
       }
     )
 
+  }
+
+
+  def ReplayTalkApi = Action { request =>
+
+    Ok("(ノﾟДﾟ)八(ﾟДﾟ　)ノｲｴｰｲ")
   }
 
   def getOneData : Future[Test] = {

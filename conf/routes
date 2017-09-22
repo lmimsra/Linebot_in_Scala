@@ -5,27 +5,27 @@
 # An example controller showing a sample home page
 #GET         /                    controllers.HomeController.index
 # An example controller showing how to use dependency injection
-GET         /count               controllers.CountController.count
+GET         /count                controllers.CountController.count
 # An example controller showing how to write asynchronous code
-GET         /message             controllers.AsyncController.message
+GET         /message              controllers.AsyncController.message
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)
+GET         /assets/*file         controllers.Assets.versioned(path="/public", file: Asset)
 
 #GET        /rest-test           restapi.RestApiTest.getJsonScala
 
-GET         /                    controllers.HomeController.myIndex
+GET         /                     controllers.HomeController.myIndex
 
-GET         /show                controllers.DataAccessController.show
+GET         /show                 controllers.DataAccessController.show
 
-POST        /insert              controllers.DataAccessController.InsertData
+POST        /insert               controllers.DataAccessController.InsertData
 
-POST        /update              controllers.DataAccessController.update(id:Long)
+POST        /update               controllers.DataAccessController.update(id:Long)
 
-GET         /edit/:id            controllers.DataAccessController.editContent(id:Long)
+GET         /edit/:id             controllers.DataAccessController.editContent(id:Long)
 
-GET         /delete/:id          controllers.DataAccessController.delete(id:Long)
+GET         /delete/:id           controllers.DataAccessController.delete(id:Long)
 
-GET         /get/json            controllers.LineBotController.getJsonString
+GET         /get/json             controllers.LineBotController.getJsonString
 
-POST        /line/request        controllers.LineBotController.sendPHP
+POST        /line/get/rand        controllers.LineBotController.getRandData
