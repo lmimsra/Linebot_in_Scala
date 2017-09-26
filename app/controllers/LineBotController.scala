@@ -86,7 +86,7 @@ class LineBotController @Inject()(ws:WSClient)(testDao: testDao)(val messagesApi
     apiResponse.map(response =>{
       val body_text = response.json \"results"
       val body_main = (body_text.get.as[JsArray].value.toList.head \"reply").get.as[String]
-      println(body_main)
+      println("送信："+request_body+"　返信："+body_main)
       Ok(body_main)
     })
 
