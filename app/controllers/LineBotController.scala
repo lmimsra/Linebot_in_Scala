@@ -16,6 +16,7 @@ import scala.concurrent.{Await, Future}
 import scala.math._
 import scala.util.Random
 import models.SecretContent
+import play.api.Logger
 
 import scala.io.Source
 
@@ -86,7 +87,7 @@ class LineBotController @Inject()(ws:WSClient)(testDao: testDao)(val messagesApi
     apiResponse.map(response =>{
       val body_text = response.json \"results"
       val body_main = (body_text.get.as[JsArray].value.toList.head \"reply").get.as[String]
-      println("送信："+request_body+"　返信："+body_main)
+      Logger.info("送信："+request_body+"　返信："+body_main)
       Ok(body_main)
     })
 
