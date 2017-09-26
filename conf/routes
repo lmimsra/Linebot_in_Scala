@@ -29,3 +29,5 @@ GET         /delete/:id           controllers.DataAccessController.delete(id:Lon
 GET         /get/json             controllers.LineBotController.getJsonString
 
 POST        /line/get/rand        controllers.LineBotController.getRandData
+
+GET         /talk/test            controllers.LineBotController.ReplayTalkApi

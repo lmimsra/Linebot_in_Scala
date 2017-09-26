@@ -6,21 +6,21 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.libs.json._
 import dao.testDao
 import models.{Test, TestJsonData}
-import play.api.Logger
-import play.api.data.Form
-import play.api.data.Forms.{mapping, nonEmptyText}
 import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.Controller
 import play.api.mvc._
+import play.api.libs.ws
+import play.api.libs.ws.{WSAPI, WSClient, WSRequest, WSResponse}
 
-import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
 import scala.math._
 import scala.util.Random
-import scala.util.parsing.json.JSONArray
+import models.SecretContent
+
+import scala.io.Source
 
 @Singleton
-class LineBotController @Inject()(testDao: testDao)(val messagesApi: MessagesApi) extends Controller with I18nSupport {
+class LineBotController @Inject()(ws:WSClient)(testDao: testDao)(val messagesApi: MessagesApi) extends Controller with I18nSupport {
 
   //mapping class for json
   implicit val testWrites = new Writes[Test] {
@@ -74,9 +74,20 @@ class LineBotController @Inject()(testDao: testDao)(val messagesApi: MessagesApi
   }
 
 
-  def ReplayTalkApi = Action { request =>
+  def ReplayTalkApi = Action.async { request =>
+    val secret = new SecretContent
+    val requestUrl:WSRequest = ws.url("https://api.a3rt.recruit-tech.co.jp/talk/v1/smalltalk")
+//    val apiRequest: WSRequest = requestUrl.withHeaders("Accept"->"application/json").withQueryString("apikey"->secret.getApiKey,"query"->"おはようございます")
+    val apiRequest: WSRequest = requestUrl.withHeaders("Accept"->"application/json")
+    val apiResponse:Future[WSResponse] = apiRequest.post(Map("apikey"->Seq(secret.getApiKey),"query"->Seq("おはようございます")))
 
-    Ok("(ノﾟДﾟ)八(ﾟДﾟ　)ノｲｴｰｲ")
+    apiResponse.map(response =>{
+      val body_text = response.json \"results"
+      val body_main = (body_text.get.as[JsArray].value.toList.head \"reply").get.as[String]
+      println(body_main)
+      Ok(body_main)
+    })
+
   }
 
   def getOneData : Future[Test] = {
