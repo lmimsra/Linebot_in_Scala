@@ -75,11 +75,13 @@ class LineBotController @Inject()(ws:WSClient)(testDao: testDao)(val messagesApi
 
 
   def ReplayTalkApi = Action.async { request =>
+
+    val request_body = (request.body.asJson.get \"text_body").as[String]
     val secret = new SecretContent
     val requestUrl:WSRequest = ws.url("https://api.a3rt.recruit-tech.co.jp/talk/v1/smalltalk")
 //    val apiRequest: WSRequest = requestUrl.withHeaders("Accept"->"application/json").withQueryString("apikey"->secret.getApiKey,"query"->"おはようございます")
     val apiRequest: WSRequest = requestUrl.withHeaders("Accept"->"application/json")
-    val apiResponse:Future[WSResponse] = apiRequest.post(Map("apikey"->Seq(secret.getApiKey),"query"->Seq("おはようございます")))
+    val apiResponse:Future[WSResponse] = apiRequest.post(Map("apikey"->Seq(secret.getApiKey),"query"->Seq(request_body)))
 
     apiResponse.map(response =>{
       val body_text = response.json \"results"

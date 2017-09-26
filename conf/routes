@@ -30,4 +30,4 @@ GET         /get/json             controllers.LineBotController.getJsonString
 
 POST        /line/get/rand        controllers.LineBotController.getRandData
 
-GET         /talk/test            controllers.LineBotController.ReplayTalkApi
+POST         /talk/simple            controllers.LineBotController.ReplayTalkApi
